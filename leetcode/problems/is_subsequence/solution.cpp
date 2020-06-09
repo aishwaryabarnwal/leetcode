@@ -5,7 +5,7 @@ public:
         int n = t.size();
         int j = 0;
         for(int i=0;i<n && j<m;i++)
-            if(s[j]==t[i])
+            if(s[j] == t[i])
                 j++;
         return (j==m);
     }
