@@ -16,17 +16,18 @@ class Solution {
         {
             fast = fast.next;
         }
+        //fast = slow + k , when slow reaches nth from end , fast reaches end
         if(fast == null)
         {
             head = head.next;
-            return head;
+            return head; // return null;
         }
-        while(fast.next != null)
+        while(fast.next!=null)
         {
             slow = slow.next;
             fast = fast.next;
         }
         slow.next = slow.next.next;
-        return head; 
+        return head;
     }
 }
