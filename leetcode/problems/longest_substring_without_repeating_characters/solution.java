@@ -5,9 +5,9 @@ class Solution {
         Map<Character, Integer> map = new HashMap<Character, Integer>();
         for (int i=0;i<n;i++)
         {
-            if(map.containsKey(s.charAt(i)) && map.get(s.charAt(i)) >= start)
+            if(map.containsKey(s.charAt(i)))
             {
-                start = map.get(s.charAt(i)) + 1;
+                start = Math.max(start, map.get(s.charAt(i))+1);
             }
             map.put(s.charAt(i), i);
             res = Math.max(res, i-start +1);
