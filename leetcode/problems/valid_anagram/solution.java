@@ -1,20 +1,18 @@
 class Solution {
     public boolean isAnagram(String s, String t) {
-        int [] map = new int[26];
-        int n1 = s.length(), n2 = t.length();
+        int n1 = s.length();
+        int n2 = t.length();
         if(n1 != n2)
             return false;
+        int[] freq = new int[26];
         for(int i=0;i<n1;i++)
         {
-            map[s.charAt(i) - 'a']++;
+            freq[s.charAt(i) - 'a']++;
+            freq[t.charAt(i) - 'a']--;
         }
-        for(int i=0;i<n2;i++)
+        for(int i=0;i<26;i++)
         {
-            if(map[t.charAt(i) - 'a'] != 0){
-                map[t.charAt(i) - 'a']--;
-                //count++;
-            }
-            else
+            if(freq[i]!=0)
                 return false;
         }
         return true;
