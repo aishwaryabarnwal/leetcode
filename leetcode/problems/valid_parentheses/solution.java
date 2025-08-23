@@ -5,34 +5,26 @@ class Solution {
         for(int i=0;i<n;i++)
         {
             char exp = s.charAt(i);
-            if(exp == '(' || exp == '{' || exp == '[')
+            if(exp == '(')
             {
-                st.push(exp);
+                st.push(')');
                 continue;
             }
-            if(st.isEmpty())
+            else if(exp == '{')
+            {
+                st.push('}');
+                continue;
+            }
+            else if(exp == '[')
+            {
+                st.push(']');
+                continue;
+            }
+            else if(st.isEmpty() || st.pop() != exp)
             {
                 return false;
             }
-            char val;
-            switch(exp)
-            {
-                case ')':
-                    val = st.pop();
-                    if(val == '{' || val == '[')
-                        return false;
-                    break;
-                case '}':
-                    val = st.pop();
-                    if(val == '(' || val == '[')
-                        return false;
-                    break;
-                case ']':
-                    val = st.pop();
-                   if(val == '(' || val == '{')
-                        return false;
-                    break;
-            }
+            
         }
         return (st.isEmpty());
     }
