@@ -1,16 +1,23 @@
 class Solution {
     public boolean canConstruct(String ransomNote, String magazine) {
-         int[] alphabet = new int[26];
-        if(ransomNote.length()>magazine.length()) return false;
-        for(Character ch:magazine.toCharArray()){
-            alphabet[ch - 'a']++;
+        int[] freq = new int[26];
+
+        int r = ransomNote.length();
+        int m = magazine.length();
+
+        if(r > m)
+            return false;
+        for(char ch : magazine.toCharArray())
+        {
+            freq[ch - 'a']++;
         }
-        for(Character ch:ransomNote.toCharArray()){
-            //checking before subtracting 
-            if(alphabet[ch - 'a'] == 0) return false;
-            alphabet[ch - 'a']--;
-            
+        for(char ch : ransomNote.toCharArray())
+        {
+            if(freq[ch - 'a'] == 0)
+                return false;
+            freq[ch - 'a']--;
         }
+        
         return true;
     }
 }
