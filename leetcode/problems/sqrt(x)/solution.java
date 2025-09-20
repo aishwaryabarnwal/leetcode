@@ -5,9 +5,9 @@ class Solution {
         int i = 1;
         for(i=1;i<=x/i;i++)
         {
-            if(x/i == i)
+            if(i == x/i)
                 return i;
         }
-        return i-1; //returning (i-1) because at some point (i*i) became greater than x and loop stopped!!
+        return i-1;
     }
 }
