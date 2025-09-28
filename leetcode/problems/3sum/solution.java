@@ -1,34 +1,34 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(nums);
-        int n = nums.length;
-        for(int i=0;i<n;i++)
-        {
-            if(i!=0 && nums[i] == nums[i-1])
-                continue;
-            int j = i+1;
-            int k = n-1;
-            while(j<k)
+       int n = nums.length;
+       int l = 0, r = n - 1;
+       Arrays.sort(nums);
+       List<List<Integer>> res = new ArrayList<>();
+       while(l < r)
+       {
+            int target = - nums[l];
+            int m = l + 1;
+            while(m < r)
             {
-                int sum = nums[i] + nums[j] + nums[k];
-                if(sum > 0)
-                    k--;
-                else if(sum < 0)
-                    j++;
-                else
-                {
-                    List<Integer> temp = Arrays.asList(nums[i], nums[j], nums[k]);
-                    res.add(temp);
-                    j++;
-                    k--;
-                     //skip the duplicates:
-                    while (j < k && nums[j] == nums[j - 1]) j++;
-                    while (j < k && nums[k] == nums[k + 1]) k--;
+               int sum = nums[m] + nums[r];
+                if(sum == target)
+                {      
+                    res.add(Arrays.asList(nums[l], nums[m], nums[r]));
+                    m++;
+                    r--;
+                    while (m < r && nums[m] == nums[m - 1]) m++;
+                    while (m < r && nums[r] == nums[r + 1]) r--;
                 }
-                 
+                else if(sum < target) 
+                    m++;
+                else 
+                    r--;
             }
-        }
-        return res;
+            l++;
+            while (l < n - 1 && nums[l] == nums[l - 1]) 
+                l++;
+            r = n - 1; 
+       }
+       return res;
     }
 }
