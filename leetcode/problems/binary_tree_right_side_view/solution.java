@@ -16,18 +16,24 @@
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        //right view is last node of every level
-        // when stack size is equal to level, add to res
-        rightView(root, res, 0);
+        if(root == null)
+            return res;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty())
+        {
+            int n = q.size();
+            for(int i=0;i<n;i++)
+            {
+                TreeNode node = q.remove();
+                if(i == n-1)
+                    res.add(node.val);
+                if(node.left != null)
+                    q.add(node.left);
+                if(node.right != null)
+                    q.add(node.right);
+            }
+        }
         return res;
-    }
-    public void rightView(TreeNode curr, List<Integer> res, int level)
-    {
-        if(curr == null)
-            return;
-        if(level == res.size())
-            res.add(curr.val);
-        rightView(curr.right, res, level+1);
-        rightView(curr.left, res, level+1);
     }
 }
