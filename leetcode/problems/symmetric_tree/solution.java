@@ -17,16 +17,24 @@ class Solution {
     public boolean isSymmetric(TreeNode root) {
         if(root == null)
             return true;
-        
-        return isSame(root.left, root.right);
-    }
-    public boolean isSame(TreeNode p, TreeNode q) {
-        if(p == null && q == null)
-            return true;
-        if(p == null || q == null)
-            return false;
-        if(p.val != q.val)
-            return false;
-        return isSame(p.left, q.right) && isSame(p.right, q.left);
+        Stack<TreeNode> st = new Stack<>();
+        st.push(root.left);
+        st.push(root.right);
+        while(!st.isEmpty())
+        {
+            TreeNode right = st.pop();
+            TreeNode left = st.pop();
+
+            if(left == null && right == null)
+                continue;
+            if(left == null || right == null || left.val != right.val)
+                return false;
+
+            st.push(left.left);
+            st.push(right.right);
+            st.push(left.right);
+            st.push(right.left);
+        }
+        return true;
     }
 }
