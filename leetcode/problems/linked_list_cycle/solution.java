@@ -14,14 +14,14 @@ public class Solution {
         if(head == null)
             return false;
         ListNode slow = head, fast = head;
-        while(fast!=null && fast.next!=null)
+        // Detect cycle
+        while(fast != null && fast.next != null)
         {
-            fast = fast.next.next;
             slow = slow.next;
-            
+            fast = fast.next.next;
             if(slow == fast)
-            return true;
+                return true;
         }
-        return false;
+        return false;    
     }
 }
