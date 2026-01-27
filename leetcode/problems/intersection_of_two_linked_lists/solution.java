@@ -13,13 +13,37 @@ public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if(headA == null || headB == null)
             return null;
-        ListNode n1 = headA; ListNode n2 = headB;
-        while(n1!=n2)
+        // tail of headA
+        ListNode tail = headA;
+        while(tail.next != null)
+            tail = tail.next;
+
+        // Create cycle
+        tail.next = headB;
+
+        //Detect cycle entry
+        ListNode slow = headA, fast = headA;
+        ListNode intersection = null;
+        while(fast != null && fast.next != null)
         {
-           n1 = n1==null ? headB : n1.next;
-           n2 = n2==null ? headA : n2.next;
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast)
+            {
+                slow = headA;
+                while (slow != fast) {
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                intersection = slow;
+                break;
+            }
         }
-        return n1;
-            
+
+        // Restore list
+        tail.next = null;
+
+        return intersection;
     }
 }
