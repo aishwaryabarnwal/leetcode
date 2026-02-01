@@ -1,44 +1,37 @@
 class Solution {
     public String minWindow(String s, String t) {
+        int sLen = s.length();
+        int tLen = t.length();
+        int[] tfreq = new int[256];
+        int[] sfreq = new int[256];
+        if(tLen > sLen)
+            return "";
 
-        int n1 = s.length();
-        int n2 = t.length();
-        int l = 0, r  = 0;
+        for(char ch : t.toCharArray())
+            tfreq[ch]++;
+        
+        int l = 0, r = 0, size = tLen, minStart = 0;
         int minLen = Integer.MAX_VALUE;
-        int minStart = 0;
-        StringBuilder sb = new StringBuilder();
-        int[] freqS = new int[256];
-        int[] freqT = new int[256];
-        for (char c : t.toCharArray()) {
-            freqT[c]++;
-        }
-        while(r < n1)
+        while(r < sLen)
         {
             char ch = s.charAt(r);
-
-            // add char into window
-            if (freqT[ch] > 0) {
-                if (freqS[ch] < freqT[ch]) {
-                    n2--; // satisfied one more char
-                }
-            }
-            freqS[ch]++;
-            r++;
-
-            // shrink from left if all chars matched
-            while (n2 == 0) {
-                if (r - l < minLen) {
-                    minLen = r - l;
+            sfreq[ch]++;
+            if(tfreq[ch] > 0 && sfreq[ch] <= tfreq[ch])
+                size--;
+            
+            while(size == 0)
+            {
+                 if (r - l + 1 < minLen) {
+                    minLen = r - l + 1;
                     minStart = l;
                 }
-
-                char leftChar = s.charAt(l);
-                freqS[leftChar]--;
-                if (freqT[leftChar] > 0 && freqS[leftChar] < freqT[leftChar]) {
-                    n2++; // we lost a needed char
-                }
+                char lCh = s.charAt(l);
+                sfreq[lCh]--;
+                if(tfreq[lCh] > 0 && sfreq[lCh] < tfreq[lCh])
+                    size++;
                 l++;
             }
+            r++;
         }
         return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
     }
