@@ -1,7 +1,9 @@
 class Solution {
     public int getSum(int a, int b) {
-        int sum = 0;
-        while(b!=0)
+        // a ^ b → adds without carry
+        // a & b → gives carry bits
+        //<< 1 → shifts carry to correct position
+        while(b != 0)
         {
             int carry = (a & b) << 1;
             a = a ^ b;
