@@ -8,16 +8,7 @@
  * }
  */
 public class Codec {
- static {
-        Runtime.getRuntime().gc();
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try (FileWriter writer = new FileWriter("display_runtime.txt")) {
-                writer.write("0");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }));
-    }
+ 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         StringBuilder sb = new StringBuilder();
