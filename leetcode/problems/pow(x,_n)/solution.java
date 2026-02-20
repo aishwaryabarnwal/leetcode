@@ -3,19 +3,24 @@ class Solution {
         
         long N = n;  // important (handle Integer.MIN_VALUE)
         if(N < 0)
-        {
-            x = 1/x;
             N = -N;
-        }
-        double result = 1;
+        double ans = 1;
         while(N > 0)
         {
-            if((N & 1) == 1) // if odd
-                result *= x;
-
-            x *= x;
-            N /= 2;
+            if(N % 2 != 0)
+            {
+                ans *= x;
+                N = N - 1;
+            }
+            else
+            {
+                x *= x;
+                N = N / 2;
+            }
         }
-        return result;
+        if(n < 0)
+            return 1/ans;
+
+        return ans;
     }
 }
